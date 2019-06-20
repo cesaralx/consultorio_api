@@ -17,6 +17,10 @@ Node JS
 
 ### Installing
 
+```
+renombrar archivo .env.example a .env
+```
+
 A step by step series of examples that tell you how to get a development env running
 
 Clona el proyecto
