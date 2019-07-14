@@ -1,18 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require("jsonwebtoken")
+const {userModel} = require('../src/database/collections/users/userSchema') //import from model schema
 
 
-const username = "one"
-const password = "123456"
+// const username = "cesaral"
+// const password = "123456"
 
-router.post('/',(req, res, next) => {
+async function userExists(usr, pwd) {
+  return await userModel.findOne({usuario: usr, password: pwd})
+}
+
+
+router.post('/',async (req, res, next) => {
+
  let p_username = req.body.username
  let p_password = req.body.password
+ let exists = await userExists(p_username, p_password)
 
-if(p_username == username && p_password == password){
+ if (!exists){
+    res.send({
+    ok: false,
+    message: "Username or password incorrect"
+    })
+    } else {
     var token = jwt.sign(
-    { username: username }, 
+    { username: p_username }, 
     process.env.SKEY ,{expiresIn: '8h'}, //tiempo de expiracion de 8 horas
     (err, token) => {
         res.send({
@@ -21,12 +34,7 @@ if(p_username == username && p_password == password){
         token: token
         })
     })
- } else {
-    res.send({
-    ok: false,
-    message: "Username or password incorrect"
-    })
-    }
+ }  
 });
 
 
