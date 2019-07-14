@@ -24,7 +24,7 @@ async function getUsrs() {
 }
 
 async function getUsrByUser(user) {
-  return await userModel.findOne({user})
+  return await userModel.findOne({usuario: user})
 }
 
 async function getUsrByID(id) {
