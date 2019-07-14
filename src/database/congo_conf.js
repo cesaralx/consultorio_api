@@ -6,7 +6,7 @@ let database = null;
 async function startDatabase() {
   mongoose.set('useFindAndModify', false); //permite modificar usando el comando find
     // const connection = await MongoClient.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
-    const connection = await mongoose.connect(process.env.DB_URI, {useNewUrlParser: true}, function (err) {
+    const connection = await mongoose.connect(process.env.DB_URI, {useNewUrlParser: true,  useCreateIndex: true,}, function (err) {
       if (err) throw err;
       console.log('Successfully connected to DB')
     });

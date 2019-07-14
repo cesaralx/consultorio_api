@@ -23,6 +23,10 @@ async function getUsrs() {
   return await userModel.find({}).sort('fecha_update')
 }
 
+async function getUsrByUser(user) {
+  return await userModel.findOne({user})
+}
+
 async function getUsrByID(id) {
   return await userModel.findById(id)
 }
@@ -52,4 +56,5 @@ module.exports = {
   getUsrByID,
   deleteUsr,
   updateUsr,
+  getUsrByUser,
 };

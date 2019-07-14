@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {insertUsr, getUsrs, getUsrByID, deleteUsr, updateUsr} = require('../src/database/collections/users/user');
+const {insertUsr, getUsrs, getUsrByID, deleteUsr, updateUsr, getUsrByUser} = require('../src/database/collections/users/user');
 var methods = require("../src/auth/method")
 
 
@@ -13,6 +13,14 @@ router.get('/',  methods.ensureToken, async function(req, res, next) {
 router.get('/byId', async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await getUsrByID(req.query.id);
+  if (!adsID)  res.status(404).json({"message": "user not found"});
+  else
+  res.send(adsID);
+});
+
+router.get('/byUsr', async function(req, res) {
+  // console.log('id a consultar', req.query.id)
+  var adsID = await getUsrByUser(req.query.user);
   if (!adsID)  res.status(404).json({"message": "user not found"});
   else
   res.send(adsID);
