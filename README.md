@@ -66,6 +66,7 @@ Add additional notes about how to deploy this on a live system
 * [nodemon](https://nodemon.io/) - Dependency Management
 * [mongoose](https://mongoosejs.com/) - usado como driver de mongodb
 * [jwt](https://jwt.io/) - El generador de tokens
+* [nodemailer](https://nodemailer.com/about/) - Framework para mandar emails
 
 
 
