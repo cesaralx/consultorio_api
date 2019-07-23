@@ -22,8 +22,9 @@ router.get('/byId', async function(req, res) {
 router.post('/', async function(req, res, next) {
   // res.send(insert());
   const newAd = req.body;
-  console.log(req.body)
+  // console.log(req.body)
   await paciColl.insertPaciente(newAd, res);
+  
 });
 
 router.delete('/', async function(req, res) {

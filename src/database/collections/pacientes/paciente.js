@@ -1,5 +1,6 @@
 const {pacienteModel} = require('./pacienteSchema') //import from model schema
 
+
 async function insertPaciente(ad, res) {
   var newAsd = new pacienteModel (ad);
   var insertedId = newAsd.save(function (err) {
@@ -13,7 +14,7 @@ async function insertPaciente(ad, res) {
       }
     }else{
       // return res.send({ message: 'New user inserted.' });
-      return res.send(insertedId);
+      return res.send(newAsd._id); //return new id insertered
     }
   });
 }

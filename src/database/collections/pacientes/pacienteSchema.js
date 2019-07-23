@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var randomstring = require("randomstring");
 var Schema = mongoose.Schema;
 
 var pacienteSchema = new Schema({
@@ -16,6 +17,17 @@ var pacienteSchema = new Schema({
   conyugue: {
     nombre: String,
     ocupacion: String
+  },
+  login: {
+    usuario: {type: String, default: function() {
+      return randomstring.generate(7);
+  }},
+    password: {type: String, default: function(){
+      return randomstring.generate({
+        length: 7,
+        charset: 'numeric'
+      });
+    }}
   },
   refiere: String,
   status: {type: String, enum: ['enabled', 'disabled'], default: 'enabled'},
