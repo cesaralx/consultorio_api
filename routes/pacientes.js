@@ -19,6 +19,14 @@ router.get('/byId', async function(req, res) {
   res.send(adsID);
 });
 
+router.get('/byUsr', async function(req, res) {
+  // console.log('id a consultar', req.query.id)
+  var adsID = await paciColl.getPacienteByUser(req.query.user);
+  if (!adsID)  res.status(404).json({"message": "user not found"});
+  else
+  res.send(adsID);
+});
+
 router.post('/', async function(req, res, next) {
   // res.send(insert());
   const newAd = req.body;

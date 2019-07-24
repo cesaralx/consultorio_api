@@ -27,6 +27,10 @@ async function getPacienteByID(id) {
   return await pacienteModel.findById(id)
 }
 
+async function getPacienteByUser(usuario) {
+  return await pacienteModel.findOne({"login.usuario": usuario})
+}
+
 async function deletePaciente(id, res) {
   await pacienteModel.findOneAndRemove({_id: id},function(err, doc){
     if (err) return res.status(500).send({ error: err });
@@ -52,4 +56,5 @@ module.exports = {
   getPacienteByID,
   deletePaciente,
   updatePaciente,
+  getPacienteByUser,
 };

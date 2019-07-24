@@ -7,7 +7,7 @@ var pacienteSchema = new Schema({
   nombre: {type: String, required: true},
   edad: { type: Number, min: 1, max: 99},
   telefono: Number,
-  email: {type: String, lowercase: true, required: true},
+  email: {type: String, lowercase: true, required: true, unique: true, index: true},
   fum: String,
   ffp: String,
   estado_civil: String,
@@ -35,6 +35,8 @@ var pacienteSchema = new Schema({
   fecha_alta: { type: Date, default: Date.now },
   fecha_update: { type: Date, default: Date.now },
 });
+
+pacienteSchema.index({ email: 1 }, { unique: true});
 
 // Compile model from schema
 var pacienteModel = mongoose.model('pacienteSchema', pacienteSchema );

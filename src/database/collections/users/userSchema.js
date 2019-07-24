@@ -15,6 +15,7 @@ var userSchema = new Schema({
   fecha_alta: { type: Date, default: Date.now },
   fecha_update: { type: Date, default: Date.now },
 });
+userSchema.index({ usuario: 1 }, { unique: true});
 
 // Compile model from schema
 var userModel = mongoose.model('userSchema', userSchema );
