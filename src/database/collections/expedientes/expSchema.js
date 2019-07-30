@@ -20,13 +20,13 @@ var expeSchema = new Schema({
   Ante_fam_pato: {
     cirugias: String,
     transfuciones: {
-      transfucion: Boolean,
+      transfucion: String,
       motivo: String,
     },
     fracturas: String,
     hospitalizaciones: String,
     fumar: {
-      fuma: Boolean,
+      fuma: String,
       cantidad: Number,
     },
     alcohol: String,
