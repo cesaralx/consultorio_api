@@ -4,14 +4,14 @@ const paciColl = require('../src/database/collections/pacientes/paciente');
 var methods = require("../src/auth/method")
 
 
-router.get('/', async function(req, res, next) {
+router.get('/', methods.ensureToken, async function(req, res, next) {
   var allusr = await paciColl.getPacientes()
   // console.log(allusr)
   res.send(allusr);
 });
 
 // get por id
-router.get('/byId', async function(req, res) {
+router.get('/byId', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await paciColl.getPacienteByID(req.query.id);
   if (!adsID)  res.status(404).json({"message": "paciente not found"});
@@ -19,7 +19,7 @@ router.get('/byId', async function(req, res) {
   res.send(adsID);
 });
 
-router.get('/byUsr', async function(req, res) {
+router.get('/byUsr', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await paciColl.getPacienteByUser(req.query.user);
   if (!adsID)  res.status(404).json({"message": "user not found"});
@@ -27,7 +27,7 @@ router.get('/byUsr', async function(req, res) {
   res.send(adsID);
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/', methods.ensureToken, async function(req, res, next) {
   // res.send(insert());
   const newAd = req.body;
   // console.log(req.body)
@@ -35,11 +35,11 @@ router.post('/', async function(req, res, next) {
   
 });
 
-router.delete('/', async function(req, res) {
+router.delete('/', methods.ensureToken, async function(req, res) {
   await paciColl.deletePaciente(req.query.id, res);
 });
 
-router.put('/', async function(req, res) {
+router.put('/', methods.ensureToken, async function(req, res) {
   const updatedAd = req.body;
   await paciColl.updatePaciente(req.query.id, updatedAd, res);
 });

@@ -46,7 +46,7 @@ router.post('/',async (req, res, next) => {
       if (existsExternal) {
         jwt.sign(
           { username: p_username }, 
-          process.env.SKEY ,{expiresIn: '2h'}, //tiempo de expiracion de 8 horas
+          process.env.SKEY ,{expiresIn: '8h'}, //tiempo de expiracion de 8 horas
           (err, token) => {
               res.send({
               ok: true,

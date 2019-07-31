@@ -4,14 +4,14 @@ const expeCollection = require('../src/database/collections/expedientes/expedien
 var methods = require("../src/auth/method")
 
 
-router.get('/', async function(req, res, next) {
+router.get('/', methods.ensureToken, async function(req, res, next) {
   var allusr = await expeCollection.getExpes()
   // console.log(allusr)
   res.send(allusr);
 });
 
 // get por id
-router.get('/byId', async function(req, res) {
+router.get('/byId', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await expeCollection.getExpeByID(req.query.id);
   if (!adsID)  res.status(404).json({"message": "expediente not found"});
@@ -19,7 +19,7 @@ router.get('/byId', async function(req, res) {
   res.send(adsID);
 });
 
-router.get('/byPaciente', async function(req, res) {
+router.get('/byPaciente', methods.ensureToken, async function(req, res) {
     // console.log('id a consultar', req.query.id)
     var adsID = await expeCollection.getExpeByPaciente(req.query.id);
     if (!adsID)  res.status(404).json({"message": "expediente not found"});
@@ -27,18 +27,18 @@ router.get('/byPaciente', async function(req, res) {
     res.send(adsID);
   });
 
-router.post('/', async function(req, res, next) {
+router.post('/', methods.ensureToken, async function(req, res, next) {
   // res.send(insert());
   const newAd = req.body;
   console.log(req.body)
   await expeCollection.insertExpe(newAd, res);
 });
 
-router.delete('/', async function(req, res) {
+router.delete('/', methods.ensureToken, async function(req, res) {
   await expeCollection.deleteExpe(req.query.id, res);
 });
 
-router.put('/', async function(req, res) {
+router.put('/', methods.ensureToken, async function(req, res) {
   const updatedAd = req.body;
   await expeCollection.updateExpe(req.query.id, updatedAd, res);
 });

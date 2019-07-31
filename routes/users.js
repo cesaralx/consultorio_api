@@ -10,7 +10,7 @@ router.get('/',  methods.ensureToken, async function(req, res, next) {
   res.send(allusr);
 });
 
-router.get('/byId', async function(req, res) {
+router.get('/byId', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await getUsrByID(req.query.id);
   if (!adsID)  res.status(404).json({"message": "Problemas con el servidor"});
@@ -18,7 +18,7 @@ router.get('/byId', async function(req, res) {
   res.send(adsID);
 });
 
-router.get('/byUsr', async function(req, res) {
+router.get('/byUsr', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await getUsrByUser(req.query.user);
   if (!adsID)  res.status(404).json({"message": "user not found"});
@@ -26,7 +26,7 @@ router.get('/byUsr', async function(req, res) {
   res.send(adsID);
 });
 
-router.post('/recUsr', async function(req, res) {
+router.post('/recUsr', methods.ensureToken, async function(req, res) {
   var adsID = await common_user.mail(req.body.id);
   // console.log('id a consultar', req.body.id)
   if (!adsID)  res.status(404).json({"message": "user not found"});
@@ -34,18 +34,18 @@ router.post('/recUsr', async function(req, res) {
   res.send({message: 'email succesfully sended'});
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/', methods.ensureToken, async function(req, res, next) {
   // res.send(insert());
   const newAd = req.body;
   console.log(res.body)
   await insertUsr(newAd, res);
 });
 
-router.delete('/', async function(req, res) {
+router.delete('/', methods.ensureToken, async function(req, res) {
   await deleteUsr(req.query.id, res);
 });
 
-router.put('/', async function(req, res) {
+router.put('/', methods.ensureToken, async function(req, res) {
   const updatedAd = req.body;
   await updateUsr(req.query.id, updatedAd, res);
 });
