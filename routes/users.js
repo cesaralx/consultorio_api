@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const {insertUsr, getUsrs, getUsrByID, deleteUsr, updateUsr, getUsrByUser} = require('../src/database/collections/users/user');
+const {insertUsr, getUsrs, getUsrByID, deleteUsr, 
+  updateUsr, getUsrByUser, getUsrByEmail} = require('../src/database/collections/users/user');
 var methods = require("../src/auth/method")
 var common_user = require('../src/common/recover_user')
 
@@ -26,7 +27,16 @@ router.get('/byUsr', methods.ensureToken, async function(req, res) {
   res.send(adsID);
 });
 
-router.post('/recUsr', methods.ensureToken, async function(req, res) {
+router.get('/byEmail', async function(req, res) {
+  // console.log('email a consultar', req.query.email)
+  var adsID = await getUsrByEmail(req.query.email);
+  // console.log(adsID)
+  if (!adsID)  res.status(404).json({"message": "user not found"});
+  else
+  res.send(adsID);
+});
+
+router.post('/recUsr', async function(req, res) {
   var adsID = await common_user.mail(req.body.id);
   // console.log('id a consultar', req.body.id)
   if (!adsID)  res.status(404).json({"message": "user not found"});

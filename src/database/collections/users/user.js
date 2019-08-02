@@ -31,6 +31,10 @@ async function getUsrByID(id) {
   return await userModel.findById(id)
 }
 
+async function getUsrByEmail(emaill) {
+  return await userModel.findOne({email: emaill})
+}
+
 async function deleteUsr(id, res) {
   await userModel.findOneAndRemove({_id: id},function(err, doc){
     if (err) return res.status(500).send({ error: err });
@@ -57,4 +61,5 @@ module.exports = {
   deleteUsr,
   updateUsr,
   getUsrByUser,
+  getUsrByEmail
 };
