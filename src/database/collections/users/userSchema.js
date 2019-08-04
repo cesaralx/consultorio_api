@@ -8,7 +8,7 @@ var userSchema = new Schema({
   cargo: String,
   telefono: Number,
   nivel: { trype: Number},
-  email: {type: String, lowercase: true, required: true},
+  email: {type: String, lowercase: true, required: true, unique: true, index: true},
   status: {type: String, enum: ['enabled', 'disabled'], default: 'enabled'},
   especialidad: String,
   image: Buffer,
