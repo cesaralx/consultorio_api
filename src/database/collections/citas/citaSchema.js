@@ -7,6 +7,8 @@ var citaSchema = new Schema({
   id_usuario: Schema.Types.ObjectId,
   fecha: { type: Date, default: Date.now },
   fecha_update: { type: Date, default: Date.now },
+  hour_start: Number,
+  hour_end: Number,
   status: {type: String, enum: ['confirmada', 'nueva', 'reagendada', 'cancelada'], default: 'nueva'},
   costo: String,
   extra: String,
