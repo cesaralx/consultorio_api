@@ -21,6 +21,7 @@ async function getCitas() {
   return await citaModel.find({}).sort('fecha_update')
 }
 
+
 async function getCitaByID(id) {
   return await citaModel.findById(id)
 }

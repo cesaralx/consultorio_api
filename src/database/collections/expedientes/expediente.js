@@ -28,7 +28,7 @@ async function getExpeByID(id) {
 }
 
 async function getExpeByPaciente(id) {
-  return await expeModel.findOne({paciente_id: id})
+  return await expeModel.findOne({'paciente_id': id})
 }
 
 async function deleteExpe(id, res) {

@@ -33,6 +33,10 @@ async function getVisMedBypaci(idp) {
   return await visitaMedModel.find({id_paciente: idp})
 }
 
+async function get3LastVisitas() {
+  return await visitaMedModel.find({}).limit(3).sort('fecha')
+}
+
 async function getVisMedByconsul(idcon) {
   return await visitaMedModel.find({id_consultorio: icon})
 }
@@ -64,4 +68,5 @@ module.exports = {
   getVisMedByCita,
   getVisMedBypaci,
   getVisMedByconsul,
+  get3LastVisitas,
 };
