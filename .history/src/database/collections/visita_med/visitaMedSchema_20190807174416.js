@@ -9,14 +9,14 @@ var visitaMedSchema = new Schema({
   id_usuario: Schema.Types.ObjectId,
   fecha:  { type: Date },
   motivo: String,
-  anexos: [{ type : Buffer, ref: 'anexos' }],
-  // anexos: [{
-  //    archivo: Buffer,
-  //    namefile: String,
-  //    dataTipe: String
-  // }],
+  //anexos: [{ type : Buffer, ref: 'anexos' }],
+  anexos: [{
+     archivo: Buffer,
+     namefile: String,
+     dataTipe: String
+  }],
+  doc: Buffer,
   filenames: [{type: String, ref: 'filenames'}],
-  tipoFile: [{type: String, ref: 'tipoFile'}],
   receta:{
     medicamento: String,
   },
