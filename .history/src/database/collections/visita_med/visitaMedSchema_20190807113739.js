@@ -10,13 +10,8 @@ var visitaMedSchema = new Schema({
   fecha:  { type: Date },
   motivo: String,
   anexos: [{ type : Buffer, ref: 'anexos' }],
-  // anexos: [{
-  //    archivo: Buffer,
-  //    namefile: String,
-  //    dataTipe: String
-  // }],
-  filenames: [{type: String, ref: 'filenames'}],
-  tipoFile: [{type: String, ref: 'tipoFile'}],
+  doc: Buffer,
+  filenames: [{type: String, ref: 'filename'}],
   receta:{
     medicamento: String,
   },
