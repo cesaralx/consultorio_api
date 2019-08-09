@@ -11,6 +11,7 @@ var userSchema = new Schema({
   email: {type: String, lowercase: true, required: true, unique: true, index: true},
   status: {type: String, enum: ['enabled', 'disabled'], default: 'enabled'},
   especialidad: String,
+  consultorio_id: Schema.Types.ObjectId,
   image: Buffer,
   fecha_alta: { type: Date, default: Date.now },
   fecha_update: { type: Date, default: Date.now },

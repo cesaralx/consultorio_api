@@ -21,13 +21,16 @@ async function getCitas() {
   return await citaModel.find({}).sort('fecha_update')
 }
 
+async function getCitasByConsultorio(id_consultorio) {
+  return await citaModel.find({id_consultorio: id_consultorio}).sort('fecha_update')
+}
 
 async function getCitaByID(id) {
   return await citaModel.findById(id)
 }
 
 async function getcitaByPaciente(idpaciente){
-  return await citaModel.findOne({id_paciente: idpaciente})
+  return await citaModel.findOne( {id_paciente: idpaciente, status: { $in: [ "confirmada", "nueva", "reagendada" ]} } ).sort('fecha_update')
 }
 
 async function deleteCita(id, res) {
@@ -56,4 +59,5 @@ module.exports = {
   deleteCita,
   updateCita,
   getcitaByPaciente,
+  getCitasByConsultorio,
 };
