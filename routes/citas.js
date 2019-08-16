@@ -24,6 +24,16 @@ router.get('/byPaciente', methods.ensureToken, async function(req, res) {
   if (!adsID)  res.status(404).json({"message": "cita not found"});
   else
   res.send(adsID);
+}); 
+
+
+
+router.get('/byConsultorioToday', methods.ensureToken, async function(req, res) {
+  // console.log('id a consultar', req.query.id)
+  var adsID = await citaCollection.getCitasByConsultorioToday(req.query.id);
+  if (!adsID)  res.status(404).json({"message": "cita not found"});
+  else
+  res.send(adsID);
 });
 
 router.get('/byConsultorio', methods.ensureToken, async function(req, res) {

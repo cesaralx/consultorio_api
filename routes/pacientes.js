@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const paciColl = require('../src/database/collections/pacientes/paciente');
 var methods = require("../src/auth/method")
+var common_paci = require('../src/common/recover_paciente')
 
 
 router.get('/', methods.ensureToken, async function(req, res, next) {
@@ -25,6 +26,14 @@ router.get('/byUsr', methods.ensureToken, async function(req, res) {
   if (!adsID)  res.status(404).json({"message": "user not found"});
   else
   res.send(adsID);
+});
+
+router.post('/recPas', async function(req, res) {
+    console.log('id a consultar', req.body.id)
+  var adsID = await common_paci.mail(req.body.id);
+  if (!adsID)  res.status(404).json({"message": "user not found"});
+  else
+  res.send({message: 'email succesfully sended'});
 });
 
 router.post('/', methods.ensureToken, async function(req, res, next) {

@@ -19,7 +19,7 @@ router.get('/byId', methods.ensureToken, async function(req, res) {
   res.send(adsID);
 });
 
-router.get('/byUsr', methods.ensureToken, async function(req, res) {
+router.get('/byUsr', async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await getUsrByUser(req.query.user);
   if (!adsID)  res.status(404).json({"message": "user not found"});
@@ -37,6 +37,7 @@ router.get('/byEmail', async function(req, res) {
 });
 
 router.post('/recUsr', async function(req, res) {
+  console.log('id a consultar', req.body.id)
   var adsID = await common_user.mail(req.body.id);
   // console.log('id a consultar', req.body.id)
   if (!adsID)  res.status(404).json({"message": "user not found"});

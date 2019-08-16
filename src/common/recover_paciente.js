@@ -1,16 +1,17 @@
-const { getUsrByID } = require('../database/collections/users/user');
+const { getPacienteByID } = require('../database/collections/pacientes/paciente');
 const nodemailer = require("nodemailer");
 
 module.exports.mail = async(id)=>{
-    var usrInfo = await getUsrByID(id);
-    if (!usrInfo) 
-         res.status(404).json({"message": "User not found"})
-    else
-        return await main2(usrInfo)
+    var usrInfo = await getPacienteByID(id);
+    // console.log(usrInfo)
+    // if (!usrInfo) 
+    //      res.status(404).json({"message": "User not found"})
+    // else
+        return await main(usrInfo)
 }
 
 // async..await is not allowed in global scope, must use a wrapper
-main2 = async (usrInfo) => {
+main = async (usrInfo) => {
 
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
@@ -356,8 +357,8 @@ main2 = async (usrInfo) => {
                           <tr>\
                             <td>\
                               <p>"+usrInfo.nombre+"</p>\
-                              <p>Usuario: "+usrInfo.usuario+"</p>\
-                              <p>Contrasena: "+usrInfo.password+"</p>\
+                              <p>Usuario: "+usrInfo.login['usuario']+"</p>\
+                              <p>Contrasena: "+usrInfo.login['password']+"</p>\
                               <table role='presentation' border='0' cellpadding='0' cellspacing='0' class='btn btn-primary'>\
                                 <tbody>\
                                   <tr>\
@@ -413,7 +414,7 @@ main2 = async (usrInfo) => {
         let info = await transporter.sendMail({
             from: '"Unidad de ginecologia 👻" <suconsultorio9@gmail.com>', // sender address
             to: usrInfo.email, // list of receivers
-            subject: "Password recovery request " , // Subject line
+            subject: "Credenciales Paciente" , // Subject line
             text: usrInfo.nombre , // plain text body
             html: htmlbody // html body
         });

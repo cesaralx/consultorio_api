@@ -25,6 +25,19 @@ async function getCitasByConsultorio(id_consultorio) {
   return await citaModel.find({id_consultorio: id_consultorio}).sort('fecha_update')
 }
 
+async function getCitasByConsultorioToday(id_consultorio) {
+  var startDate = new Date();
+  startDate.setSeconds(0);
+  startDate.setHours(0);
+  startDate.setMinutes(0);
+  var dateMidnight = new Date(startDate);
+  dateMidnight.setHours(23);
+  dateMidnight.setMinutes(59);
+  dateMidnight.setSeconds(59);
+  return await citaModel.find({id_consultorio: id_consultorio, 
+    status: { $in: [ "confirmada", "nueva", "reagendada" ]}, fecha: { $gt: startDate, $lt: dateMidnight } } ).sort('fecha_update')
+}
+
 async function getCitaByID(id) {
   return await citaModel.findById(id)
 }
@@ -60,4 +73,5 @@ module.exports = {
   updateCita,
   getcitaByPaciente,
   getCitasByConsultorio,
+  getCitasByConsultorioToday,
 };
