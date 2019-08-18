@@ -27,14 +27,27 @@ router.get('/byPaciente', methods.ensureToken, async function(req, res) {
 }); 
 
 
-
 router.get('/byConsultorioToday', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
   var adsID = await citaCollection.getCitasByConsultorioToday(req.query.id);
   if (!adsID)  res.status(404).json({"message": "cita not found"});
   else
   res.send(adsID);
+});  
+
+router.get('/byConsultorioMissing', methods.ensureToken, async function(req, res) {
+  // console.log('id a consultar', req.query.id)
+  var adsID = await citaCollection.getCitasByConsultorioMissing(req.query.id);
+  if (!adsID)  res.status(404).json({"message": "cita not found"});
+  else
+  res.send(adsID);
 });
+
+router.get('/xMesxConsultorio', methods.ensureToken, async function(req, res, next) {
+  var allusr = await citaCollection.getCitasxMesxConsultorio()
+  // console.log(allusr)
+  res.send(allusr);
+}); 
 
 router.get('/byConsultorio', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
