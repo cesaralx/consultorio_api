@@ -39,6 +39,12 @@ async function getCitasxMesxConsultorio() {
     ])
   }
 
+  async function getCostoCitas() {
+    return await citaModel.aggregate([
+      { $group: { _id: "$id_consultorio", total: { $sum: { '$toInt': '$costo' }}}}
+   ])
+  }
+
 async function getCitasByConsultorioToday(id_consultorio) {
   var startDate = new Date();
   startDate.setSeconds(0);
@@ -99,4 +105,5 @@ module.exports = {
   getCitasByConsultorioToday,
   getCitasByConsultorioMissing,
   getCitasxMesxConsultorio,
+  getCostoCitas,
 };

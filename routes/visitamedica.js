@@ -51,6 +51,12 @@ if (!adsID)  res.status(404).json({"message": "visita not found"});
 else
 res.send(adsID);
 });
+
+router.get('/xMesxConsultorio', methods.ensureToken, async function(req, res, next) {
+  var allusr = await visitaColl.getVisitasxMesxConsultorio()
+  // console.log(allusr)
+  res.send(allusr);
+}); 
   
 
 router.post('/', methods.ensureToken, async function(req, res, next) {

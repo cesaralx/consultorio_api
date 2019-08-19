@@ -17,6 +17,21 @@ async function insertVisMed(ad, res) {
   });
 }
 
+async function getVisitasxMesxConsultorio() {
+  return await visitaMedModel.aggregate([
+    { $group: {
+        _id: {name: "$id_consultorio", month: {$month: "$fecha"}},
+        count: { $sum: 1}
+    }},
+    {$sort:{"_id.month":1}},
+    {$group: {
+        _id: "$_id.name",
+        meses: {$push: {month: "$_id.month", count: "$count"}}
+    }}
+    ])
+  }
+  
+
 async function getVisMeds() {
   return await visitaMedModel.find({}).sort('fecha')
 }
@@ -69,4 +84,5 @@ module.exports = {
   getVisMedBypaci,
   getVisMedByconsul,
   get3LastVisitas,
+  getVisitasxMesxConsultorio,
 };

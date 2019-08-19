@@ -41,10 +41,16 @@ router.get('/byConsultorioMissing', methods.ensureToken, async function(req, res
   if (!adsID)  res.status(404).json({"message": "cita not found"});
   else
   res.send(adsID);
-});
+}); 
 
 router.get('/xMesxConsultorio', methods.ensureToken, async function(req, res, next) {
   var allusr = await citaCollection.getCitasxMesxConsultorio()
+  // console.log(allusr)
+  res.send(allusr);
+}); 
+
+router.get('/costoCitas', methods.ensureToken, async function(req, res, next) {
+  var allusr = await citaCollection.getCostoCitas()
   // console.log(allusr)
   res.send(allusr);
 }); 
