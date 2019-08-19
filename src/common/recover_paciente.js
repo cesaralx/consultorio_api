@@ -417,13 +417,31 @@ main = async (usrInfo) => {
             subject: "Credenciales Paciente" , // Subject line
             text: usrInfo.nombre , // plain text body
             html: htmlbody // html body
+        }).then(function(info) {
+          console.info('Message sent: %s', info.messageId);
+          return true
+        }).catch(function(err) {
+          console.info('error: ', err);
+          return false
         });
 
-        console.log("Message sent: %s", info.messageId);
+        return info;
 
-        // Preview only available when sending through an Ethereal account
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        return true
+
+
+        // mailer.sendMail(mail_obj).then(function(info) {
+        //   console.info('sent to: ', info);
+        //   process.exit();
+        // }).catch(function(err) {
+        //   console.info('error: ', err);
+        // });
+
+
+        // console.log("Message sent: %s", info.messageId);
+
+        // // Preview only available when sending through an Ethereal account
+        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        // return true
 
     } catch (e) {
         console.error(e)
