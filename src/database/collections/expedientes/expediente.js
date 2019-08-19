@@ -23,6 +23,10 @@ async function getExpes() {
   return await expeModel.find({}).sort('fecha_update')
 }
 
+async function getExpesLite() {
+  return await expeModel.find({},{paciente_id:1, _id:1, antecedentes_gineco_obst:1, fecha_update:1 })
+}
+
 async function getExpeByID(id) {
   return await expeModel.findById(id)
 }
@@ -57,4 +61,5 @@ module.exports = {
   deleteExpe,
   updateExpe,
   getExpes,
+  getExpesLite,
 };

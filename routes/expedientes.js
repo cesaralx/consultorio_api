@@ -10,6 +10,12 @@ router.get('/', methods.ensureToken, async function(req, res, next) {
   res.send(allusr);
 });
 
+router.get('/getLite', methods.ensureToken, async function(req, res, next) {
+  var allusr = await expeCollection.getExpesLite()
+  // console.log(allusr)
+  res.send(allusr);
+});
+
 // get por id
 router.get('/byId', methods.ensureToken, async function(req, res) {
   // console.log('id a consultar', req.query.id)
