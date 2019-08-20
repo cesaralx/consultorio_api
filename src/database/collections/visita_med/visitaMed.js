@@ -48,8 +48,8 @@ async function getVisMedBypaci(idp) {
   return await visitaMedModel.find({id_paciente: idp})
 }
 
-async function get3LastVisitas() {
-  return await visitaMedModel.find({}).limit(3).sort('fecha')
+async function get3LastVisitas(idp) {
+  return await visitaMedModel.find({id_paciente: idp}).limit(3).sort('fecha')
 }
 
 async function getVisMedByconsul(idcon) {

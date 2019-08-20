@@ -11,7 +11,7 @@ router.get('/', methods.ensureToken, async function(req, res, next) {
 });
 
 router.get('/lastVisitas', methods.ensureToken, async function(req, res, next) {
-  var allusr = await visitaColl.get3LastVisitas()
+  var allusr = await visitaColl.get3LastVisitas(req.query.id)
   // console.log(allusr)
   res.send(allusr);
 });
